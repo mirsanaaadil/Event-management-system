@@ -75,12 +75,9 @@ def view_registrations():
     conn = sqlite3.connect("database.db")
     cur = conn.cursor()
 
-    cur.execute("""
-        SELECT users.username, events.name
-        FROM registrations
+    cur.execute("""SELECT users.username, events.name FROM registrations
         JOIN users ON registrations.user_id = users.id
-        JOIN events ON registrations.event_id = events.id
-    """)
+        JOIN events ON registrations.event_id = events.id""")
 
     registrations = cur.fetchall()
     conn.close()

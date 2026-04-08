@@ -31,6 +31,6 @@ event_id      | INTEGER   | NOT NULL, FK       | References EVENTS(id)
 ---------------------------------------------------------------------------
 
 Relationship
-One user can register for many events
-One event can have many users
+- One user can register for many events
+- One event can have many users
 So, many-to-many relationship using registrations table
