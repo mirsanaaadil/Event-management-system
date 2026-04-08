@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+
+<h2>Admin Dashboard</h2>
+<div class="container">
+    <div class="admin-box">
+
+<h3>Add Event</h3>
+<form method="POST" action="/add_event">
+    <input type="text" name="name" placeholder="Event Name" required><br><br>
+    <input type="date" name="date" id="date" required><br><br>
+    <input type="text" name="location" placeholder="Location" required><br><br>
+    <input type="text" name="description" placeholder="Description"><br><br>
+    <button type="submit">Add Event</button>
+</form>
+
+<hr>
+</div>
+
+<div class="admin-box">
+<h2>All Events</h2>
+<table border="1">
+<tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Location</th>
+    <th>Action</th>
+</tr>
+
+{% for e in events %}
+<tr>
+    <td>{{ e[0] }}</td>
+    <td>{{ e[1] }}</td>
+    <td>{{ e[2] }}</td>
+    <td>{{ e[3] }}</td>
+    <td>
+        <a href="/delete_event/{{ e[0] }}" onclick="return confirm('Are you sure?')">
+            Delete
+        </a>
+    </td>
+</tr>
+{% endfor %}
+
+</table>
+
+<br><br>
+</div>
+<div style="text-align:center; margin-top:20px;">
+    <a href="/registrations" class="view-btn">View Registrations</a>
+</div>
+<script>
+    let today = new Date().toISOString().split('T')[0];
+    document.getElementById("date").setAttribute("min", today);
+</script>
+
+<a href="/logout" class="logout">Logout</a>
+</div>
+</body>
+</html>

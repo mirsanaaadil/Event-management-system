@@ -11,6 +11,9 @@ cur.execute("CREATE TABLE IF NOT EXISTS registrations(id INTEGER PRIMARY KEY, us
 
 cur.execute("INSERT OR IGNORE INTO users VALUES (1, 'admin', 'admin123', 'admin')")
 cur.execute("INSERT OR IGNORE INTO users VALUES (2, 'user1', 'user123', 'user')")
+cur.execute("INSERT OR IGNORE INTO users VALUES (3, 'user2', 'user123', 'user')")
+cur.execute("INSERT OR IGNORE INTO users VALUES (4, 'user3', 'user123', 'user')")
+
 
 conn.commit()
 conn.close()

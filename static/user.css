@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: #f4f6f9;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    margin: 30px auto;
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #2a5298;
+}
+
+/* Links */
+a {
+    text-decoration: none;
+    color: #2a5298;
+    font-weight: bold;
+}
+
+/* View My Events button */
+.view-btn {
+    display: inline-block;
+    padding: 10px 18px;
+    background: linear-gradient(to right, #4facfe, #00c6ff);
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.view-btn:hover {
+    transform: scale(1.05);
+}
+
+/* Flash message */
+.flash {
+    text-align: center;
+    color: green;
+    font-weight: bold;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Table header */
+th {
+    background: #2a5298;
+    color: white;
+    padding: 12px;
+}
+
+/* Table cells */
+td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Alternate rows */
+tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+/* Hover effect */
+tr:hover {
+    background: #eef3ff;
+}
+
+/* Register button */
+.register-btn {
+    padding: 6px 12px;
+    background: #27ae60;
+    color: white;
+    border-radius: 5px;
+}
+
+.register-btn:hover {
+    background: #1e8449;
+}
+
+/* Already registered text */
+.registered {
+    color: gray;
+    font-weight: bold;
+}
+
+/* Logout button */
+.logout-btn {
+    display: block;
+    margin: 30px auto;
+    padding: 10px 20px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background: #c0392b;
+}

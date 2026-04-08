@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background: linear-gradient(to right, #eef2f3, #dfe9f3);
+    margin: 0;
+    padding: 0;
+}
+
+/* Container */
+.container {
+    width: 85%;
+    margin: 40px auto;
+}
+
+/* Card box */
+.admin-box {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    color: #2a5298;
+    margin-bottom: 20px;
+}
+
+/* Back button */
+.btn-back {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 8px 15px;
+    background: #2a5298;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.btn-back:hover {
+    background: #1e3c72;
+}
+
+/* Table */
+.reg-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* Header */
+.reg-table th {
+    background: linear-gradient(to right, #2a5298, #2a5298);
+    color: white;
+    padding: 12px;
+    text-align: center;
+}
+
+/* Cells */
+.reg-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Alternate rows */
+.reg-table tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+/* Hover effect */
+.reg-table tr:hover {
+    background: #eef3ff;
+    transform: scale(1.01);
+    transition: 0.2s;
+}

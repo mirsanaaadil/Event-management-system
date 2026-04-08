@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Event</title>
+</head>
+<body>
+
+<h2>Add Event</h2>
+
+<form method="POST" action="/add_event">
+    <input type="text" name="name" placeholder="Event Name" required><br><br>
+
+    <input type="date" name="date" required><br><br>
+
+    <input type="text" name="location" placeholder="Location" required><br><br>
+
+    <input type="text" name="description" placeholder="Description"><br><br>
+
+    <button type="submit">Add Event</button>
+</form>
+
+<br>
+<h2 style="text-align:center; margin-top:30px;">Registered Users</h2>
+
+<table class="reg-table">
+    <tr>
+        <th>Username</th>
+        <th>Event</th>
+    </tr>
+
+    {% for r in registrations %}
+    <tr>
+        <td>{{ r[0] }}</td>
+        <td>{{ r[1] }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="/admin">Back to Dashboard</a>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registered Users</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <div class="admin-box">
+
+        <!-- Back Button -->
+        <a href="/admin" class="btn-back">← Back</a>
+
+        <!-- Heading -->
+        <h2 style="text-align:center;">Registered Users</h2>
+
+        <!-- Table -->
+        <table>
+            <tr>
+                <th>No</th>
+                <th>Username</th>
+                <th>Event</th>
+            </tr>
+
+            {% for r in registrations %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ r[0] }}</td>
+                <td>{{ r[1] }}</td>
+            </tr>
+            {% endfor %}
+
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

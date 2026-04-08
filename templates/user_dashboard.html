@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='user.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+<h2>User Dashboard</h2>
+
+<div style="text-align:center;">
+    <a href="/my_events" class="view-btn"> View My Events</a>
+</div>
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for msg in messages %}
+      <p class="flash">{{ msg }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<h3>Available Events</h3>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Location</th>
+        <th>Description</th>
+        <th>Action</th>
+    </tr>
+
+    {% for event in events %}
+    <tr>
+        <td>{{ event[1] }}</td>
+        <td>{{ event[2] }}</td>
+        <td>{{ event[3] }}</td>
+        <td>{{ event[4] }}</td>
+
+        <td>
+            {% if event[0] in registered_ids %}
+                <span class="registered"> Registered</span>
+            {% else %}
+                <a href="/register/{{ event[0] }}" class="register-btn">Register</a>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<form action="/logout">
+    <button class="logout-btn">Logout</button>
+</form>
+
+</div>
+
+</body>
+</html>
