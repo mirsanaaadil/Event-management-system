@@ -1,116 +1,175 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-body {
-    font-family: 'Poppins', Arial, sans-serif;
-    background: #f4f6f9;
+/* RESET */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-/* Container */
+/* BODY */
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: #f4f6fb;
+    color: #2c3e50;
+}
+
+/* CONTAINER */
 .container {
     width: 90%;
-    margin: 30px auto;
+    margin: auto;
+    padding: 20px;
 }
 
-/* Heading */
-h2 {
+/* HEADER */
+.header {
     text-align: center;
-    color: #2a5298;
-}
-
-/* Links */
-a {
-    text-decoration: none;
-    color: #2a5298;
+    padding: 20px;
+    font-size: 22px;
     font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    border-radius: 10px;
 }
 
-/* View My Events button */
+/* NAV */
+.nav {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+/* BUTTONS */
+.btn {
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+/* VIEW BUTTON */
 .view-btn {
-    display: inline-block;
-    padding: 10px 18px;
-    background: linear-gradient(to right, #4facfe, #00c6ff);
+    background: #4f46e5;
     color: white;
-    border-radius: 8px;
-    margin-bottom: 20px;
 }
 
 .view-btn:hover {
-    transform: scale(1.05);
+    background: #3730a3;
 }
 
-/* Flash message */
-.flash {
-    text-align: center;
-    color: green;
-    font-weight: bold;
-}
-
-/* Table */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* Table header */
-th {
-    background: #2a5298;
-    color: white;
-    padding: 12px;
-}
-
-/* Table cells */
-td {
-    padding: 12px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
-}
-
-/* Alternate rows */
-tr:nth-child(even) {
-    background: #f9f9f9;
-}
-
-/* Hover effect */
-tr:hover {
-    background: #eef3ff;
-}
-
-/* Register button */
-.register-btn {
-    padding: 6px 12px;
-    background: #27ae60;
-    color: white;
-    border-radius: 5px;
-}
-
-.register-btn:hover {
-    background: #1e8449;
-}
-
-/* Already registered text */
-.registered {
-    color: gray;
-    font-weight: bold;
-}
-
-/* Logout button */
+/* LOGOUT */
 .logout-btn {
-    display: block;
-    margin: 30px auto;
-    padding: 10px 20px;
-    background: #e74c3c;
+    background: #ef4444;
     color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
 }
 
 .logout-btn:hover {
-    background: #c0392b;
+    background: #dc2626;
+}
+
+/* FLASH */
+.flash {
+    background: #dcfce7;
+    color: #166534;
+    padding: 10px;
+    margin: 10px auto;
+    width: 60%;
+    border-radius: 6px;
+    text-align: center;
+}
+
+/* SECTION TITLE */
+.section-title {
+    text-align: center;
+    margin: 20px 0;
+    font-size: 20px;
+}
+
+/* CARD GRID */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* CARD */
+.card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* IMAGE */
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* BODY */
+.card-body {
+    padding: 15px;
+    text-align: center;
+}
+
+/* TITLE */
+.card-body h4 {
+    margin-bottom: 8px;
+}
+
+/* DATE */
+.date {
+    color: #6b7280;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+/* DESCRIPTION */
+.desc {
+    font-size: 13px;
+    color: #555;
+    height: 40px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+/* REGISTER BUTTON */
+.register-btn {
+    background: #4f46e5;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.register-btn:hover {
+    background: #3730a3;
+}
+
+/* REGISTERED */
+.registered {
+    display: inline-block;
+    color: #16a34a;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.card:hover {
+    transform: scale(1.15);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+    z-index: 10;
 }

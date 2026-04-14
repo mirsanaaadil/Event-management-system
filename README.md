@@ -97,7 +97,7 @@ git add .
 git commit -m "Initial project setup"
 
 2. Connect to GitHub
-git remote add origin <your-repo-link>
+git remote add origin <your-repocommit -link>
 git branch -M main
 git push -u origin main
 
@@ -179,13 +179,3 @@ Future Improvements
 - Improve UI
 
 --------------------------------------------------
-
-Author
-
-Mirsana K. L.
-
---------------------------------------------------
-
-Conclusion
-
-This project demonstrates CRUD operations, authentication, and role-based access using Flask.

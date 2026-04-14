@@ -4,57 +4,66 @@
     <title>User Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='user.css') }}">
 </head>
+
 <body>
 
 <div class="container">
 
-<h2>User Dashboard</h2>
+    <div class="header">
+        <h2>User Dashboard</h2>
+    </div>
 
-<div style="text-align:center;">
-    <a href="/my_events" class="view-btn"> View My Events</a>
-</div>
+    <!-- NAV -->
+    <div class="nav">
+        <a href="/my_events" class="btn view-btn">View My Events</a>
+        <a href="/logout" class="btn logout-btn">Logout</a>
+    </div>
 
-<!-- Flash Messages -->
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    {% for msg in messages %}
-      <p class="flash">{{ msg }}</p>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
+    <!-- FLASH -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-container">
+        {% for msg in messages %}
+          <p class="flash">{{ msg }}</p>
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
 
-<h3>Available Events</h3>
+    <h3 class="section-title">Available Events</h3>
 
-<table>
-    <tr>
-        <th>Name</th>
-        <th>Date</th>
-        <th>Location</th>
-        <th>Description</th>
-        <th>Action</th>
-    </tr>
+    <!-- CARDS -->
+    <div class="card-container">
 
     {% for event in events %}
-    <tr>
-        <td>{{ event[1] }}</td>
-        <td>{{ event[2] }}</td>
-        <td>{{ event[3] }}</td>
-        <td>{{ event[4] }}</td>
+    <div class="card">
 
-        <td>
-            {% if event[0] in registered_ids %}
-                <span class="registered"> Registered</span>
+        <!-- IMAGE FIX -->
+        <img src="{{ url_for('static', filename='uploads/' ~ event[3]) }}"
+             onerror="this.onerror=null; this.src='{{ url_for('static', filename='uploads/default.png') }}';">
+
+        <div class="card-body">
+
+            <h4>{{ event[1] }}</h4>
+
+            <p class="date">📅 {{ event[2] }}</p>
+
+            <p class="desc">{{ event[4] }}</p>
+
+            {% if event[0] in registered %}
+                <span class="registered">✔ Already Registered</span>
             {% else %}
-                <a href="/register/{{ event[0] }}" class="register-btn">Register</a>
+                <form action="/register/{{ event[0] }}" method="POST">
+                    <button type="submit" class="register-btn">Register</button>
+                </form>
             {% endif %}
-        </td>
-    </tr>
-    {% endfor %}
-</table>
 
-<form action="/logout">
-    <button class="logout-btn">Logout</button>
-</form>
+        </div>
+
+    </div>
+    {% endfor %}
+
+    </div>
 
 </div>
 

@@ -4,62 +4,149 @@
     <title>Admin Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
 </head>
+
 <body>
 
 <h2>Admin Dashboard</h2>
+
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for msg in messages %}
+      <p class="flash-msg">{{ msg }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+
 <div class="container">
+
+    <!-- ADD EVENT -->
     <div class="admin-box">
+        <h3>Add Event</h3>
 
-<h3>Add Event</h3>
-<form method="POST" action="/add_event">
-    <input type="text" name="name" placeholder="Event Name" required><br><br>
-    <input type="date" name="date" id="date" required><br><br>
-    <input type="text" name="location" placeholder="Location" required><br><br>
-    <input type="text" name="description" placeholder="Description"><br><br>
-    <button type="submit">Add Event</button>
-</form>
+        <form method="POST" action="/add_event" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Event Name" required><br><br>
 
-<hr>
+            <input type="date" name="date" id="date" required><br><br>
+
+            <input type="file" name="photo"><br><br>
+
+            <textarea name="description" placeholder="Description" required></textarea><br><br>
+
+            <button type="submit">Add Event</button>
+        </form>
+    </div>
+
+
+    
+    <div class="admin-box">
+        <h3>All Events</h3>
+
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+
+            {% for e in events %}
+            <tr>
+                <td>{{ e[0] }}</td>
+                <td>{{ e[1] }}</td>
+                <td>{{ e[2] }}</td>
+
+                <td>
+                    <img src="{{ url_for('static', filename='uploads/' ~ e[3]) }}"
+                         width="80"
+                         onerror="this.src='{{ url_for('static', filename='uploads/default.png') }}'">
+                </td>
+
+                <td>
+                    <a href="/delete_event/{{ e[0] }}"
+                       onclick="return confirm('Are you sure?')">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+
+    
+    <div class="admin-box">
+        <h3>Add Executive Officer</h3>
+
+        <form method="POST" action="/add_executive" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Full Name" required><br><br>
+            <input type="email" name="email" placeholder="Email" required><br><br>
+            <input type="text" name="phone" placeholder="Phone Number" required><br><br>
+            <input type="text" name="username" placeholder="Username" required><br><br>
+            <input type="password" name="password" placeholder="Password" required><br><br>
+
+            <button type="submit">Add Executive</button>
+        </form>
+    </div>
+
+
+   
+    <div class="admin-box">
+        <h3>Executive Officers</h3>
+
+        <table border="1">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Username</th>
+                <th>Action</th>
+            </tr>
+
+            {% for u in users %}
+                {% if u[3] == 'executive' %}
+                <tr>
+                    <td>{{ u[4] or 'N/A' }}</td>
+                    <td>{{ u[5] or 'N/A' }}</td>
+                    <td>{{ u[6] or 'N/A' }}</td>
+                    <td>{{ u[1] }}</td>
+
+                    <td>
+                        <a href="/delete_user/{{ u[0] }}"
+                           onclick="return confirm('Delete this user?')">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    </div>
+
+
+    
+<div class="bottom-actions">
+
+    <a href="/registrations" class="view-link">
+        View Registrations
+    </a>
+
+    <a href="/logout" class="logout-link">
+        Logout
+    </a>
+
 </div>
 
-<div class="admin-box">
-<h2>All Events</h2>
-<table border="1">
-<tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Date</th>
-    <th>Location</th>
-    <th>Action</th>
-</tr>
-
-{% for e in events %}
-<tr>
-    <td>{{ e[0] }}</td>
-    <td>{{ e[1] }}</td>
-    <td>{{ e[2] }}</td>
-    <td>{{ e[3] }}</td>
-    <td>
-        <a href="/delete_event/{{ e[0] }}" onclick="return confirm('Are you sure?')">
-            Delete
-        </a>
-    </td>
-</tr>
-{% endfor %}
-
-</table>
-
-<br><br>
 </div>
-<div style="text-align:center; margin-top:20px;">
-    <a href="/registrations" class="view-btn">View Registrations</a>
-</div>
+
+
+
 <script>
     let today = new Date().toISOString().split('T')[0];
     document.getElementById("date").setAttribute("min", today);
 </script>
 
-<a href="/logout" class="logout">Logout</a>
-</div>
 </body>
 </html>

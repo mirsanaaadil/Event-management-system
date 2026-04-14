@@ -4,36 +4,65 @@
     <title>Registered Users</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
 </head>
+
 <body>
 
 <div class="container">
-    <div class="admin-box">
 
-        <!-- Back Button -->
-        <a href="/admin" class="btn-back">← Back</a>
+<div class="admin-box">
 
-        <!-- Heading -->
-        <h2 style="text-align:center;">Registered Users</h2>
+    <a href="/admin" class="btn-back">← Back</a>
 
-        <!-- Table -->
-        <table>
-            <tr>
-                <th>No</th>
-                <th>Username</th>
-                <th>Event</th>
-            </tr>
+    <h2 style="text-align:center;">Registered Users</h2>
 
-            {% for r in registrations %}
-            <tr>
-                <td>{{ loop.index }}</td>
-                <td>{{ r[0] }}</td>
-                <td>{{ r[1] }}</td>
-            </tr>
-            {% endfor %}
 
-        </table>
+    <!-- FLASH MESSAGE -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for msg in messages %}
+          <p style="color: green; text-align:center;">{{ msg }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
 
-    </div>
+
+    <table border="1" cellpadding="10">
+
+        <tr>
+            <th>No</th>
+            <th>Username</th>
+            <th>Event</th>
+            <th>Date</th>
+            <th>Status</th>
+        </tr>
+
+        {% for r in registrations %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ r[0] }}</td>
+            <td>{{ r[1] }}</td>
+            <td>{{ r[2] }}</td>
+
+            <!-- STATUS -->
+            <td>
+                {% if r[3] == 'Approved' %}
+                    <span style="color: green; font-weight: bold;">Approved</span>
+
+                {% elif r[3] == 'Rejected' %}
+                    <span style="color: red; font-weight: bold;">Rejected</span>
+
+                {% else %}
+                    <span style="color: orange; font-weight: bold;">Waiting</span>
+                {% endif %}
+            </td>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</div>
+
 </div>
 
 </body>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+
+<body>
+
+<div class="login-box">
+    <h2>Register</h2>
+
+    <form method="POST" action="/register" enctype="multipart/form-data">
+
+        Name: <input type="text" name="name" placeholder="Enter your full name" required>
+
+        Email: <input type="email" name="email" placeholder="Enter your email" required>
+
+       Phone: <input type="text" name="phone" pattern="[6-9][0-9]{9}" placeholder="Enter your phone number" required>
+
+      Password: <input type="password" name="password" placeholder="Enter your password" required>
+
+        <button type="submit">Register</button>
+
+    </form>
+
+    <p>Already have account?</p>
+    <a href="/" class="register-link">Back to Login</a>
+</div>
+
+<!-- FLASH -->
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for msg in messages %}
+      <p style="color:green; text-align:center;">{{ msg }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+</body>
+</html>

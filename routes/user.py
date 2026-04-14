@@ -4,72 +4,103 @@ import sqlite3
 user = Blueprint("user", __name__)
 
 
+# ---------------- CHECK USER ----------------
+def check_user():
+    return session.get("role") == "user"
+
+
+# ---------------- USER DASHBOARD ----------------
 @user.route("/user")
 def user_dashboard():
-    if "role" not in session or session["role"] != "user":
+    if not check_user():
         return redirect("/")
 
-    user_id = int(session.get("user_id"))  
+    user_id = session["user_id"]
 
-    with sqlite3.connect("database.db") as conn:
-        cur = conn.cursor()
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
 
-       
-        cur.execute("SELECT * FROM events")
-        events = cur.fetchall()
+    # ✅ FIX: handle NULL photo
+    cur.execute("""
+        SELECT id, name, date,
+               COALESCE(photo, 'default.png'),
+               description
+        FROM events
+    """)
+    events = cur.fetchall()
 
-       
-        cur.execute("SELECT event_id FROM registrations WHERE user_id=?", (user_id,))
-        registered_ids = [r[0] for r in cur.fetchall()]
+    # already registered
+    cur.execute("SELECT event_id FROM registrations WHERE user_id=?", (user_id,))
+    registered = [r[0] for r in cur.fetchall()]
 
-    return render_template("user_dashboard.html",events=events,registered_ids=registered_ids)
+    conn.close()
+
+    return render_template("user_dashboard.html",
+                           events=events,
+                           registered=registered)
 
 
-
-@user.route("/register/<int:event_id>")
-def register_event(event_id):
-    if "role" not in session or session["role"] != "user":
+# ---------------- REGISTER EVENT ----------------
+@user.route("/register/<int:event_id>", methods=["POST"])
+def register(event_id):
+    if not check_user():
         return redirect("/")
 
-    user_id = int(session.get("user_id"))
+    user_id = session["user_id"]
 
-    with sqlite3.connect("database.db") as conn:
-        cur = conn.cursor()
-        cur.execute("SELECT * FROM registrations WHERE user_id=? AND event_id=?",(user_id, event_id))
-        if not cur.fetchone():
-            cur.execute(
-                "INSERT INTO registrations (user_id, event_id) VALUES (?, ?)",
-                (user_id, event_id)
-            )
-            conn.commit() 
-            flash("Registered successfully!")
-        else:
-            flash("You already registered for this event!")
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
 
-    return redirect("/user")
+    # prevent duplicate
+    cur.execute("""
+        SELECT * FROM registrations
+        WHERE user_id=? AND event_id=?
+    """, (user_id, event_id))
+
+    if cur.fetchone():
+        flash("Already registered!")
+        conn.close()
+        return redirect("/user")
+
+    # insert
+    cur.execute("""
+        INSERT INTO registrations (user_id, event_id, status)
+        VALUES (?, ?, 'Waiting')
+    """, (user_id, event_id))
+
+    conn.commit()
+    conn.close()
+
+    flash("Registered successfully! Waiting for approval.")
+    return redirect("/my_events")
 
 
-
+# ---------------- MY EVENTS ----------------
 @user.route("/my_events")
 def my_events():
-    if "role" not in session or session["role"] != "user":
+    if not check_user():
         return redirect("/")
 
-    user_id = int(session.get("user_id"))
+    user_id = session["user_id"]
 
-    with sqlite3.connect("database.db") as conn:
-        cur = conn.cursor()
-        cur.execute("""
-            SELECT events.name, events.date, events.location
-            FROM registrations
-            JOIN events ON events.id = registrations.event_id
-            WHERE registrations.user_id=?""", (user_id,))
-        events = cur.fetchall()
+    conn = sqlite3.connect("database.db")
+    cur = conn.cursor()
 
-    return render_template("my_events.html", events=events)
+    cur.execute("""SELECT events.name, events.date, COALESCE(events.photo, 'default.png'), registrations.status
+        FROM registrations
+        JOIN events ON events.id = registrations.event_id
+        WHERE registrations.user_id=?
+    """, (user_id,))
+
+    data = cur.fetchall()
+    conn.close()
+
+    return render_template("my_events.html", events=data)
+
+
 
 @user.route("/logout")
 def logout():
-    session.clear() 
+    session.clear()
     flash("Logged out successfully!")
     return redirect("/")

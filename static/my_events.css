@@ -1,97 +1,138 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-/* Font + background */
-body {
-    font-family: 'Poppins', Arial, sans-serif;
-    background: linear-gradient(to right, #eef2f3, #dfe9f3);
+/* RESET */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
-/* Container */
-.container {
-    width: 85%;
-    margin: 40px auto;
+/* BODY */
+body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: #f4f6fb;
+    color: #2c3e50;
+    padding: 20px;
 }
 
-/* Card box */
-.box {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    transition: 0.3s;
-}
-
-.box:hover {
-    transform: translateY(-3px);
-}
-
-/* Heading */
+/* TITLE */
 h2 {
     text-align: center;
-    color: #2a5298;
     margin-bottom: 20px;
-    letter-spacing: 1px;
+    color: #4f46e5;
+    font-size: 26px;
 }
 
-/* Back button */
+/* BACK BUTTON */
 .btn-back {
     display: inline-block;
     margin-bottom: 15px;
-    padding: 8px 15px;
-    background: #2a5298;
+    padding: 8px 14px;
+    background: #4f46e5;
     color: white;
-    border-radius: 6px;
     text-decoration: none;
+    border-radius: 6px;
     transition: 0.3s;
 }
 
 .btn-back:hover {
-    background: #1e3c72;
-    transform: scale(1.05);
+    background: #3730a3;
 }
 
-/* ===== COMMON TABLE STYLE ===== */
+/* FLASH MESSAGE */
+p {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* TABLE */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
     background: white;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
-/* Header */
+/* TABLE HEADER */
 table th {
-    background: linear-gradient(to right, #2a5298, #4facfe);
+    background: #111827;
     color: white;
     padding: 12px;
-    text-align: center;
-    font-weight: 600;
+    font-size: 14px;
 }
 
-/* Cells */
+/* TABLE ROW */
 table td {
     padding: 12px;
     text-align: center;
     border-bottom: 1px solid #eee;
 }
 
-/* Alternate rows */
-table tr:nth-child(even) {
-    background: #f9f9f9;
-}
-
-/* Hover effect */
+/* ROW HOVER */
 table tr:hover {
-    background: #eef3ff;
-    transform: scale(1.01);
-    transition: 0.2s;
+    background: #f9fafb;
 }
 
-/* Smooth edges on last row */
-table tr:last-child td {
-    border-bottom: none;
+/* IMAGE */
+table img {
+    width: 80px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+table img:hover {
+    transform: scale(1.1);
+}
+
+/* STATUS BASE STYLE */
+.status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* APPROVED */
+.status.approved,
+span[style*="green"] {
+    background: #dcfce7;
+    color: #166534;
+}
+
+/* REJECTED */
+.status.rejected,
+span[style*="red"] {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* WAITING */
+.status.waiting,
+span[style*="orange"] {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+/* EMPTY MESSAGE */
+p {
+    text-align: center;
+    font-size: 16px;
+    color: #6b7280;
+    margin-top: 20px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    table th,
+    table td {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    table img {
+        width: 60px;
+        height: 50px;
+    }
 }

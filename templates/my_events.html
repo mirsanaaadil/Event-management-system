@@ -4,41 +4,70 @@
     <title>My Events</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='my_events.css') }}">
 </head>
+
 <body>
-    
-    <h2>My Registered Events</h2>
-    <a href="/admin" class="btn-back">← Back</a>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul style="color: green;">
-          {% for msg in messages %}
-            <li>{{ msg }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
 
-    {% if events %}
-        <table border="1" cellpadding="10">
-            <tr>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Location</th>
-            </tr>
-            {% for event in events %}
-            <tr>
-                <td>{{ event[0] }}</td>
-                <td>{{ event[1] }}</td>
-                <td>{{ event[2] }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-    {% else %}
-        <p>You have not registered for any events yet.</p>
-    {% endif %}
+<h2>My Registered Events</h2>
 
-    <br>
-   
+<a href="/user" class="btn-back">← Back</a>
+
+
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for msg in messages %}
+      <p style="color: green;">{{ msg }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+
+{% if events %}
+
+<table border="1" cellpadding="10">
+
+    <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Status</th>
+    </tr>
+
+    {% for e in events %}
+    <tr>
+
         
+        <td>
+            <img src="{{ url_for('static', filename='uploads/' ~ (e[2] if e[2] else 'default.png')) }}"
+                 width="80">
+        </td>
+
+        
+        <td>{{ e[0] }}</td>
+\
+        <td>{{ e[1] }}</td>
+
+       
+        <td>
+            {% if e[3] == 'Approved' %}
+                <span style="color: green; font-weight: bold;">Approved</span>
+
+            {% elif e[3] == 'Rejected' %}
+                <span style="color: red; font-weight: bold;">Rejected</span>
+
+            {% else %}
+                <span style="color: orange; font-weight: bold;">Waiting</span>
+            {% endif %}
+        </td>
+
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% else %}
+    <p>You have not registered for any events yet.</p>
+{% endif %}
+
 </body>
 </html>
